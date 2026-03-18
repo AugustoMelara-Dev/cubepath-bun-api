@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>CubePath Bun + OpenRouter</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="intro-panel">
+        <div class="intro-panel__inner">
+          <p class="eyebrow">CubePath Lab</p>
+          <h1>Chat con Bun, OpenRouter y streaming real</h1>
+          <p class="lead">
+            El backend expone <code>/health</code> y un stream SSE para que la
+            respuesta vaya apareciendo en vivo, token por token.
+          </p>
+
+          <div class="feature-stack">
+            <article class="feature-card">
+              <span class="feature-card__label">Router gratuito</span>
+              <strong>OpenRouter Free</strong>
+              <p>
+                Usa <code>openrouter/free</code> por defecto para elegir entre
+                modelos gratis compatibles.
+              </p>
+            </article>
+
+            <article class="feature-card">
+              <span class="feature-card__label">Transmision</span>
+              <strong>SSE de extremo a extremo</strong>
+              <p>
+                El servidor retransmite el stream y la interfaz lo pinta en
+                tiempo real.
+              </p>
+            </article>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section class="topbar">
+          <div>
+            <p class="eyebrow">Estado</p>
+            <h2>Servidor y modelo</h2>
+          </div>
+
+          <div class="status-cluster">
+            <span id="healthBadge" class="status-pill status-pill--loading">
+              Comprobando
+            </span>
+            <span id="healthDetails" class="status-copy">
+              Revisando el endpoint /health...
+            </span>
+          </div>
+        </section>
+
+        <section class="chat-panel">
+          <div id="messages" class="messages" aria-live="polite">
+            <article id="emptyState" class="empty-state">
+              <p class="eyebrow">Listo para probar</p>
+              <h3>Escribe un mensaje y mira como la respuesta aparece en vivo</h3>
+              <p>
+                Si falta la variable <code>OPENROUTER_API_KEY</code>, el sistema
+                te lo indicara desde el estado del servidor.
+              </p>
+            </article>
+          </div>
+
+          <form id="composerForm" class="composer">
+            <div class="composer-grid">
+              <label class="field">
+                <span>Modelo</span>
+                <select id="modelSelect" name="model"></select>
+              </label>
+
+              <label class="field">
+                <span>System prompt</span>
+                <input
+                  id="systemPrompt"
+                  name="systemPrompt"
+                  type="text"
+                  placeholder="Opcional: fija el tono o el rol del asistente"
+                />
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Mensaje</span>
+              <textarea
+                id="promptInput"
+                name="prompt"
+                rows="4"
+                placeholder="Preguntame algo y veras el streaming en la interfaz..."
+                required
+              ></textarea>
+            </label>
+
+            <div class="composer-actions">
+              <button id="sendButton" class="button button--primary" type="submit">
+                Enviar
+              </button>
+              <button
+                id="stopButton"
+                class="button button--ghost"
+                type="button"
+                disabled
+              >
+                Detener stream
+              </button>
+              <button
+                id="clearButton"
+                class="button button--ghost"
+                type="button"
+              >
+                Limpiar chat
+              </button>
+              <span id="streamStatus" class="stream-status">
+                Esperando tu mensaje.
+              </span>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="/scripts/main.js"></script>
+  </body>
+</html>
